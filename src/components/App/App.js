@@ -2,7 +2,7 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 import BusinessList from '../BusinessList/BusinessList'
-import Searchbar from "../SearchBar/SearchBar"
+import SearchBar from "../SearchBar/SearchBar"
 
 function App() {
   return (
