@@ -1,6 +1,7 @@
 import React from 'react';
 import './SearchBar.css';
 
+
 class SearchBar extends React.Component {
 
     constructor(props) {
@@ -9,18 +10,21 @@ class SearchBar extends React.Component {
         this.state = {
             term: '',
             location:'',
-            sortBy:'best_match'
+            sortBy:'best_match',
         };
 
         this.handleTermChange = this.handleTermChange.bind(this);
         this.handleLocationChange = this.handleLocationChange.bind(this);
         this.handleSearch = this.handleSearch.bind(this);
+        this.handleKeyUp = this.handleKeyUp.bind(this) 
 
         this.sortByOptions = {
             'Best Match': 'best_match', 
             'Highest Rated': 'rating', 
             'Most Reviewed': 'review_count'
         } 
+
+        this.autocomplete= null;
     }
 
 
@@ -34,6 +38,7 @@ class SearchBar extends React.Component {
 
     handleSortByChange(sortByOption){
         this.setState({sortBy: sortByOption});
+        this.props.searchYelp(this.state.term, this.state.location, this.state.sortBy);
     }
 
     handleTermChange(event) {
@@ -43,6 +48,12 @@ class SearchBar extends React.Component {
     handleLocationChange(event) {
         this.setState({ location: event.target.value })
     };
+
+    handleKeyUp(event) {
+        if (event.charCode === 13) {
+            this.handleSearch(event);
+        }
+    }
 
     handleSearch(event) {
         this.props.searchYelp(this.state.term, this.state.location, this.state.sortBy);
@@ -60,12 +71,9 @@ class SearchBar extends React.Component {
             });
         }
 
-  
-
-
-
     render() {
         return (
+
             <div className="SearchBar" >
             <div className="SearchBar-sort-options">
                 <ul>
@@ -74,7 +82,7 @@ class SearchBar extends React.Component {
             </div>
             <div className="SearchBar-fields">
                 <input onChange={this.handleTermChange} placeholder="I want to eat..." />
-                <input onChange={this.handleLocationChange} placeholder="I am located in..." />
+                <input onChange={this.handleLocationChange} onKeyPress={this.handleKeyUp} id='autocomplete' placeholder="I am located in..." />
             </div>
             <div className="SearchBar-submit">
                 <a onClick={this.handleSearch}>Let's Go</a>

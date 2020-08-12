@@ -18,11 +18,10 @@ class App extends React.Component {
 
   searchYelp(term, location, sortBy) {
     Yelp.search(term, location, sortBy).then(businesses=>{this.setState({businesses: businesses})});
-    console.log(this.state.businesses)
+
 };
 
   render() {
-    { console.log(this.state.businesses) }
     return (
       <div className="App">
         <h1>ravenous</h1>

@@ -1,12 +1,10 @@
-const apiKey = '<API-KEY-HERE>';
+const apiKey = '5MG0fZ2r9h1Gfs6zTrdCwfliSbTKfsFqqflFz6e47L4Rx99Za417WCt5wyRC1-b4NhvrXMgCZhIHCjILT6zPGvVCjHgK-W38DHhpNyiTTLBOXAsqsfP1xkRsr-8yX3Yx';
 
 const Yelp = {
 
     search(term, location, sortBy) {
         const url = `https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?term=${term}&location=${location}&sort_by=${sortBy}`;
-        console.log(url)
         const auth = {headers: {Authorization: `Bearer ${apiKey}`}}
-        console.log(auth)
         return fetch(url, auth).then(
             response=>{
                 return response.json()
@@ -25,11 +23,11 @@ const Yelp = {
                                 category: business.categories[0].title,
                                 rating: business.rating,
                                 reviewCount: business.review_count, 
+                                url: business.url
                                     }
                         }                            
                             );
                 } else {
-                    console.log('here')
                     console.log(JSON.stringify(jsonResponse))
                 }
             });
